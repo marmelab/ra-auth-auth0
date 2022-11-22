@@ -63,6 +63,10 @@ const App = () => {
         }
     }, [auth0]);
 
+    if (!auth0) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <Admin
             authProvider={authProvider.current}
