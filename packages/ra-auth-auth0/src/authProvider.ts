@@ -7,20 +7,27 @@ export type PermissionsFunction = (roles: String[]) => any;
  *
  * @example
  * ```tsx
- * import React from 'react';
- * import { Admin, Resource, CustomRoutes } from 'react-admin';
+ * import React, { useEffect, useRef, useState } from 'react';
+ * import {
+ *    Admin,
+ *    Resource,
+ *    CustomRoutes,
+ *    AuthProvider,
+ *    DataProvider,
+ * } from 'react-admin';
+ * import { Route } from 'react-router-dom';
  * import comments from './comments';
- * import dataProvider from './dataProvider';
  * import i18nProvider from './i18nProvider';
  * import Layout from './Layout';
  * import posts from './posts';
  * import users from './users';
  * import tags from './tags';
- * import { Auth0AuthProvider } from 'ra-auth-auth0';
+ * import { Auth0AuthProvider, httpClient } from 'ra-auth-auth0';
  * import { Auth0Client } from '@auth0/auth0-spa-js';
+ * import jsonServerProvider from 'ra-data-json-server';
  *
  * const getPermissions = (roles: String[]) => {
- *  if (!roles) {
+ *    if (!roles) {
  *        return false;
  *    }
  *    if (roles.includes('admin')) return 'admin';
@@ -28,42 +35,61 @@ export type PermissionsFunction = (roles: String[]) => any;
  *    return false;
  * };
  *
- * const App = () => {
- *     const clientAuth0 = new Auth0Client({
- *      domain: import.meta.env.VITE_AUTH0_DOMAIN,
- *      clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
- *      cacheLocation: 'localstorage',
- *      authorizationParams: {
- *          audience: import.meta.env.VITE_AUTH0_AUDIENCE, // Optional but required for non-opaque access token (https://community.auth0.com/t/why-is-my-access-token-not-a-jwt-opaque-token/31028)
- *      },
- *  });
+ *  const App = () => {
+ *    const [auth0, setAuth0] = useState(undefined);
+ *    const authProvider = useRef<AuthProvider>(undefined);
+ *    const dataProvider = useRef<DataProvider>(undefined);
  *
- *  const authProvider = Auth0AuthProvider(clientAuth0, {
- *      onPermissions: getPermissions,
- *      loginRedirectUri: import.meta.env.VITE_LOGIN_REDIRECT_URL,
- *      logoutRedirectUri: import.meta.env.VITE_LOGOUT_REDIRECT_URL,
- *  });
+ *    useEffect(() => {
+ *        const initAuth0Client = async () => {
+ *           const clientAuth0 = new Auth0Client({
+ *              domain: import.meta.env.VITE_AUTH0_DOMAIN,
+ *              clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
+ *              cacheLocation: 'localstorage',
+ *              authorizationParams: {
+ *                  audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+ *              },
+ *          });
  *
- *     return (
- *         <Admin
- *             authProvider={authProvider.current}
- *             dataProvider={dataProvider.current}
- *             i18nProvider={i18nProvider}
- *             title="Example Admin"
- *             layout={Layout}
+ *          authProvider.current = Auth0AuthProvider(clientAuth0, {
+ *              onPermissions: getPermissions,
+ *              loginRedirectUri: import.meta.env.VITE_LOGIN_REDIRECT_URL,
+ *              logoutRedirectUri: import.meta.env.VITE_LOGOUT_REDIRECT_URL,
+ *          });
+ *
+ *          const httpClientAuth0 = await httpClient(clientAuth0);
+ *          dataProvider.current = jsonServerProvider(
+ *              import.meta.env.VITE_API_URL,
+ *              httpClientAuth0
+ *          );
+ *
+ *          setAuth0(clientAuth0);
+ *       };
+ *       if (!auth0) {
+ *          initAuth0Client();
+ *       }
+ *    }, [auth0]);
+ *
+ *   return (
+ *        <Admin
+ *            authProvider={authProvider.current}
+ *            dataProvider={dataProvider.current}
+ *            i18nProvider={i18nProvider}
+ *            title="Example Admin"
+ *            layout={Layout}
  *         >
- *             {permissions => (
- *                 <>
- *                     <Resource name="posts" {...posts} />
- *                     <Resource name="comments" {...comments} />
- *                     <Resource name="tags" {...tags} />
- *                     {permissions === 'admin' ? (
- *                         <Resource name="users" {...users} />
- *                     ) : null}
- *                 </>
- *             )}
- *         </Admin>
- *     );
+ *           {permissions => (
+ *               <>
+ *                   <Resource name="posts" {...posts} />
+ *                   <Resource name="comments" {...comments} />
+ *                   <Resource name="tags" {...tags} />
+ *                   {permissions === 'admin' ? (
+ *                       <Resource name="users" {...users} />
+ *                   ) : null}
+ *               </>
+ *           )}
+ *       </Admin>
+ *    );
  * };
  * export default App;
  *
@@ -105,6 +131,7 @@ export const Auth0AuthProvider = (
     // called when the user navigates to a new location, to check for authentication
     async checkAuth() {
         const isAuthenticated = await client.isAuthenticated();
+
         if (isAuthenticated) {
             return Promise.resolve();
         }

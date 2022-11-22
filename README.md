@@ -78,6 +78,11 @@ Now that all is configured and running, you can browse to http://localhost:8081/
 
 Feel free to play around with this demo, along with the Auth0 config, to understand better how it works!
 
+### JSON Server API
+
+The demo app uses a [JSON Server]() to provide a REST API. You can find the configuration in the `demo-fake-api` folder.
+It shows how use middleware to validate the JWT token via the Auth0 API.
+
 ## License
 
-This repository and the code it contains is licensed under the MIT License and sponsored by [marmelab](https://marmelab.com).
+This repository and the code it contains are licensed under the MIT License and sponsored by [marmelab](https://marmelab.com).
