@@ -36,6 +36,7 @@ export default {
     },
     server: {
         port: 8081,
+        host: '0.0.0.0',
     },
     define: { 'process.env': {} },
 };

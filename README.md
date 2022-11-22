@@ -1,16 +1,16 @@
-# ra-auth0
+# ra-auth-auth0
 
 An auth provider for [react-admin](https://github.com/marmelab/react-admin) which handles authentication via a [Auth0](https://auth0.com) instance.
 
 This repository contains:
 
--   The actual `ra-auth0` package
--   A simple demo app you can run locally to try out `ra-auth0` with your own Auth0 instance
+-   The actual `ra-auth-auth0` package
+-   A simple demo app you can run locally to try out `ra-auth-auth0` with your own Auth0 instance
 
-## The `ra-auth0` package
+## The `ra-auth-auth0` package
 
--   Please have a look at the [DOCUMENTATION](./packages/ra-auth0/Readme.md)
--   And also why not the [source code](https://github.com/marmelab/ra-auth0/tree/main/src/packages/ra-auth0)
+-   Please have a look at the [DOCUMENTATION](./packages/ra-auth-auth0/Readme.md)
+-   And also why not the [source code](https://github.com/marmelab/ra-auth-auth0/tree/main/src/packages/ra-auth-auth0)
 
 ## Simple Demo
 
@@ -21,7 +21,6 @@ This repository contains:
 ### Initial setup
 
 1. Clone this project
-1. Run `make install run` to install the dependencies and start the Demo App
 
 We need to add some minimal configuration to our Auth0 instance to use it. This need to be done from the Auth0 Admin Console.
 
@@ -41,7 +40,7 @@ If you want to use permissions, you need to add the following to your Auth0 Appl
 
 ```JS
 function (user, context, callback) {
-  const namespace = 'ra-auth0.eu.auth0.com';
+  const namespace = 'ra-auth-auth0.eu.auth0.com';
   const assignedRoles = (context.authorization || {}).roles;
 
   let idTokenClaims = context.idToken || {};
@@ -65,7 +64,10 @@ VITE_AUTH0_CLIENT_ID=your-client-id
 VITE_AUTH0_AUDIENCE=your-audience // optional but recommended for aving non opaque tokens
 VITE_LOGIN_REDIRECT_URL = 'http://127.0.0.1:8081'
 VITE_LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8081'
+VITE_API_URL = 'http://127.0.0.1:3000'
 ```
+
+1. Run `make install run` to install the dependencies and start the Demo App
 
 ### Using the Simple Demo
 

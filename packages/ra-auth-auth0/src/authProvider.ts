@@ -16,7 +16,7 @@ export type PermissionsFunction = (roles: String[]) => any;
  * import posts from './posts';
  * import users from './users';
  * import tags from './tags';
- * import { Auth0AuthProvider } from 'ra-auth0';
+ * import { Auth0AuthProvider } from 'ra-auth-auth0';
  * import { Auth0Client } from '@auth0/auth0-spa-js';
  *
  * const getPermissions = (roles: String[]) => {

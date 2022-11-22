@@ -13,15 +13,15 @@ install: package.json ## install dependencies
 		yarn --frozen-lockfile; \
 	fi
 
-build-ra-auth0:
-	@echo "Transpiling ra-auth0 files...";
-	@cd ./packages/ra-auth0 && yarn -s build
+build-ra-auth-auth0:
+	@echo "Transpiling ra-auth-auth0 files...";
+	@cd ./packages/ra-auth-auth0 && yarn -s build
 
-build-demo:
+build-demo-react-admin:
 	@echo "Transpiling demo files...";
-	@cd ./packages/demo && yarn -s build
+	@cd ./packages/demo-react-admin && yarn -s build
 
-build: build-ra-auth0 build-demo ## compile ES6 files to JS
+build: build-ra-auth-auth0 build-demo-react-admin ## compile ES6 files to JS
 
 lint: ## lint the code and check coding conventions
 	@echo "Running linter..."
@@ -38,6 +38,17 @@ test-unit: ## launch unit tests
 	yarn -s test-unit;
 
 run-demo:
-	@cd ./packages/demo && yarn start
+	@cd ./packages/demo-react-admin && yarn start
 
-run: run-demo
+run: auth0-start
+
+DOCKER_COMPOSE = docker-compose -p ra-auth-auth0 -f ./docker-compose.yml
+
+auth0-start: ## Start the project with docker.
+	$(DOCKER_COMPOSE) up --force-recreate -d
+
+auth0-logs: ## Display logs
+	$(DOCKER_COMPOSE) logs -f
+
+auth0-stop: ## Stop the project with docker.
+	$(DOCKER_COMPOSE) down

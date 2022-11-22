@@ -1,7 +1,7 @@
 {
-    "name": "ra-auth0",
+    "name": "ra-auth-auth0",
     "version": "1.0.0",
-    "repository": "git@github.com:marmelab/ra-auth0.git",
+    "repository": "git@github.com:marmelab/ra-auth-auth0.git",
     "author": "Anthony Rimet <anthony@marmelab.com> (https://marmelab.com/)",
     "license": "MIT",
     "files": [

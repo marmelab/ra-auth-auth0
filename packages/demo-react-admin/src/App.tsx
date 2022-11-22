@@ -4,14 +4,14 @@ import { Route } from 'react-router-dom';
 import comments from './comments';
 import CustomRouteLayout from './customRouteLayout';
 import CustomRouteNoLayout from './customRouteNoLayout';
-import dataProvider from './dataProvider';
 import i18nProvider from './i18nProvider';
 import Layout from './Layout';
 import posts from './posts';
 import users from './users';
 import tags from './tags';
-import { Auth0AuthProvider } from 'ra-auth0';
+import { Auth0AuthProvider } from 'ra-auth-auth0';
 import { Auth0Client } from '@auth0/auth0-spa-js';
+import jsonServerProvider from 'ra-data-json-server';
 
 const getPermissions = (roles: String[]) => {
     if (!roles) {
@@ -41,7 +41,7 @@ const App = () => {
     return (
         <Admin
             authProvider={authProvider}
-            dataProvider={dataProvider}
+            dataProvider={jsonServerProvider(import.meta.env.VITE_API_URL)}
             i18nProvider={i18nProvider}
             title="Example Admin"
             layout={Layout}

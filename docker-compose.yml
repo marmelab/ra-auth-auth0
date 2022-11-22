@@ -1,0 +1,34 @@
+version: '3'
+
+volumes:
+    postgres_data:
+        driver: local
+
+services:
+    # Create service demo-fake-api who user node 18 on port 3000 and code is in packages/demo-fake-api folder. Without postgress
+    demo-fake-api:
+        image: node:18
+        working_dir: /app/packages/demo-fake-api
+        command: yarn start
+        volumes:
+            - '.:/app'
+        ports:
+            - '3000:3000'
+
+    demo-react-admin:
+        image: node:18
+        working_dir: /app/packages/demo-react-admin
+        command: yarn start
+        volumes:
+            - '.:/app'
+        environment:
+            - VITE_API_URL=${VITE_API_URL}
+            - VITE_AUTH0_DOMAIN=${VITE_AUTH0_DOMAIN}
+            - VITE_AUTH0_CLIENT_ID=${VITE_AUTH0_CLIENT_ID}
+            - VITE_AUTH0_AUDIENCE=${VITE_AUTH0_AUDIENCE}
+            - VITE_LOGIN_REDIRECT_URL=${VITE_LOGIN_REDIRECT_URL}
+            - VITE_LOGOUT_REDIRECT_URL=${VITE_LOGOUT_REDIRECT_URL}
+        ports:
+            - '8081:8081'
+        depends_on:
+            - demo-fake-api

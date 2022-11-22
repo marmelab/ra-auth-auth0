@@ -1,4 +1,4 @@
-# ra-auth0
+# ra-auth-auth0
 
 An auth provider for [react-admin](https://github.com/marmelab/react-admin) which handles authentication via a [Auth0](https://auth0.com) instance.
 
@@ -9,9 +9,9 @@ This package provides:
 ## Installation
 
 ```sh
-yarn add ra-auth0
+yarn add ra-auth-auth0
 # or
-npm install --save ra-auth0
+npm install --save ra-auth-auth0
 ```
 
 ## Example usage
@@ -27,7 +27,7 @@ import Layout from './Layout';
 import posts from './posts';
 import users from './users';
 import tags from './tags';
-import { Auth0AuthProvider } from 'ra-auth0';
+import { Auth0AuthProvider } from 'ra-auth-auth0';
 import { Auth0Client } from '@auth0/auth0-spa-js';
 
 const getPermissions = (roles: String[]) => {
@@ -87,7 +87,7 @@ export default App;
 
 ## Demo
 
-You can find a working demo, along with the source code, in this project's repository: https://github.com/marmelab/ra-auth0
+You can find a working demo, along with the source code, in this project's repository: https://github.com/marmelab/ra-auth-auth0
 
 ## License
 
