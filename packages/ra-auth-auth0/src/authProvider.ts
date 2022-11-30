@@ -140,29 +140,30 @@ export const Auth0AuthProvider = (
             return Promise.resolve();
         }
 
-        // If we have query parameters, we are in the callback phase of the Auth0 flow
-        const query = window.location.search;
-        if (query.includes('code=') && query.includes('state=')) {
-            try {
-                await client.handleRedirectCallback(); // For some mysterious reason, this call return "Invalid state" at the first call
-                // remove query params from url and reload
-                window.history.replaceState({}, document.title, '/');
-                // Reload the page to get the user info
-                window.location.reload();
-                return Promise.resolve();
-            } catch (error) {
-                console.log('error', error);
-                return Promise.resolve(false);
-            }
-        }
+        return Promise.reject();
+        // // If we have query parameters, we are in the callback phase of the Auth0 flow
+        // const query = window.location.search;
+        // if (query.includes('code=') && query.includes('state=')) {
+        //     try {
+        //         await client.handleRedirectCallback(); // For some mysterious reason, this call return "Invalid state" at the first call
+        //         // remove query params from url and reload
+        //         window.history.replaceState({}, document.title, '/');
+        //         // Reload the page to get the user info
+        //         window.location.reload();
+        //         return Promise.resolve();
+        //     } catch (error) {
+        //         console.log('error', error);
+        //         return Promise.resolve(false);
+        //     }
+        // }
 
-        // If we are not authenticated, redirect to Auth0 login page
-        return client.loginWithRedirect({
-            authorizationParams: {
-                redirect_uri:
-                    options.loginRedirectUri || window.location.origin,
-            },
-        });
+        // // If we are not authenticated, redirect to Auth0 login page
+        // return client.loginWithRedirect({
+        //     authorizationParams: {
+        //         redirect_uri:
+        //             options.loginRedirectUri || window.location.origin,
+        //     },
+        // });
     },
     // called when the user navigates to a new location, to check for permissions / roles
     async getPermissions() {

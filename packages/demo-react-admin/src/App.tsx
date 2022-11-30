@@ -15,7 +15,7 @@ import Layout from './Layout';
 import posts from './posts';
 import users from './users';
 import tags from './tags';
-import { Auth0AuthProvider, httpClient } from 'ra-auth-auth0';
+import { Auth0AuthProvider, httpClient, Login } from 'ra-auth-auth0';
 import { Auth0Client } from '@auth0/auth0-spa-js';
 import jsonServerProvider from 'ra-data-json-server';
 
@@ -74,6 +74,7 @@ const App = () => {
             i18nProvider={i18nProvider}
             title="Example Admin"
             layout={Layout}
+            loginPage={<Login />}
         >
             {permissions => (
                 <>
