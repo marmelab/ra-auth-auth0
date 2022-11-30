@@ -39,9 +39,6 @@ const App = () => {
                 domain: import.meta.env.VITE_AUTH0_DOMAIN,
                 clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
                 cacheLocation: 'localstorage',
-                authorizationParams: {
-                    audience: import.meta.env.VITE_AUTH0_AUDIENCE,
-                },
             });
 
             authProvider.current = Auth0AuthProvider(clientAuth0, {
@@ -74,7 +71,7 @@ const App = () => {
             i18nProvider={i18nProvider}
             title="Example Admin"
             layout={Layout}
-            loginPage={<Login />}
+            loginPage={<Login client={auth0} />}
         >
             {permissions => (
                 <>

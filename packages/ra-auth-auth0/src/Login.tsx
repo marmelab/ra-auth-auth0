@@ -1,33 +1,43 @@
-import React from 'react';
-export const Login = props => {
-    // if (!props) {
-    //     return;
-    // }
-    // const { client } = props;
-    // const isAuthenticated = await client.isAuthenticated();
+import React, { useEffect, useState } from 'react';
+import { Button, Login as RaLogin, useRedirect } from 'react-admin';
+export const Login = ({ client }) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const redirect = useRedirect();
+    useEffect(() => {
+        client.isAuthenticated().then(authenticated => {
+            if (authenticated) {
+                redirect('/');
+            }
+            setIsLoading(false);
+        });
+    }, [client, redirect]);
 
-    // if (isAuthenticated) {
-    //     return;
-    // }
+    useEffect(() => {
+        const query = window.location.search;
+        if (query.includes('code=') && query.includes('state=')) {
+            client
+                .handleRedirectCallback()
+                .then(() => {
+                    // For some mysterious reason, this call return "Invalid state" at the first call
+                    return window.history.replaceState({}, document.title, '/');
+                })
+                .catch(error => {
+                    console.log('error', error);
+                });
+        }
+    }, [client]);
 
-    // const query = window.location.search;
-    // if (query.includes('code=') && query.includes('state=')) {
-    //     try {
-    //         await client.handleRedirectCallback(); // For some mysterious reason, this call return "Invalid state" at the first call
-    //         return window.history.replaceState({}, document.title, '/');
-    //     } catch (error) {
-    //         console.log('error', error);
-    //         return;
-    //     }
-    // }
+    const handleLogin = () => {
+        client.loginWithRedirect({
+            authorizationParams: {
+                redirect_uri: window.location.href,
+            },
+        });
+    };
 
-    // client.loginWithRedirect({
-    //     authorizationParams: {
-    //         redirect_uri: window.location.href,
-    //     },
-    // });
-
-    // transform upper commentaire with useEffect
-
-    return <div>TEST...</div>;
+    return (
+        <RaLogin>
+            <Button label="Login" onClick={handleLogin} disabled={isLoading} />
+        </RaLogin>
+    );
 };
