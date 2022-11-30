@@ -15,32 +15,33 @@ install: package.json ## install dependencies
 
 build-ra-auth-auth0:
 	@echo "Transpiling ra-auth-auth0 files...";
-	@cd ./packages/ra-auth-auth0 && yarn -s build
+	@cd ./packages/ra-auth-auth0 && yarn build
 
 build-demo-react-admin:
 	@echo "Transpiling demo files...";
-	@cd ./packages/demo-react-admin && yarn -s build
+	@cd ./packages/demo-react-admin && yarn build
 
 build: build-ra-auth-auth0 build-demo-react-admin ## compile ES6 files to JS
 
 lint: ## lint the code and check coding conventions
 	@echo "Running linter..."
-	@yarn -s lint
+	@yarn lint
 
 prettier: ## prettify the source code using prettier
 	@echo "Running prettier..."
-	@yarn -s prettier
+	@yarn prettier
 
 test: build test-unit lint ## launch all tests
 
 test-unit: ## launch unit tests
 	echo "Running unit tests...";
-	yarn -s test-unit;
+	yarn test-unit;
 
 run-demo:
 	@cd ./packages/demo-react-admin && yarn start
 
 run: auth0-start
+stop: auth0-stop
 
 DOCKER_COMPOSE = docker-compose -p ra-auth-auth0 -f ./docker-compose.yml
 

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { RichTextInput } from 'ra-input-rich-text';
 import {
     TopToolbar,
     AutocompleteInput,
@@ -189,14 +188,6 @@ const PostEdit = () => {
                             </SimpleFormIterator>
                         </ArrayInput>
                     )}
-                </FormTab>
-                <FormTab label="post.form.body">
-                    <RichTextInput
-                        source="body"
-                        label=""
-                        validate={required()}
-                        fullWidth
-                    />
                 </FormTab>
                 <FormTab label="post.form.miscellaneous">
                     <TagReferenceInput

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useMemo } from 'react';
-import { RichTextInput } from 'ra-input-rich-text';
 import {
     ArrayInput,
     AutocompleteInput,
@@ -125,7 +124,6 @@ const PostCreate = () => {
                     multiline
                     validate={required('Required field')}
                 />
-                <RichTextInput source="body" fullWidth validate={required()} />
                 <DependantInput dependency="title">
                     <NumberInput
                         source="average_note"
