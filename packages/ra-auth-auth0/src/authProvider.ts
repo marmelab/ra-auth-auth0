@@ -113,62 +113,38 @@ export const Auth0AuthProvider = (
     // called when the user attempts to log in. Empty in our case, as we use the Auth0 login page
     async login() {},
     // called when the user clicks on the logout button
-    logout: () => {
-        return client.isAuthenticated().then(function (isAuthenticated) {
-            if (isAuthenticated) {
-                // need to check for this as react-admin calls logout in case checkAuth failed
-                return client.logout({
-                    returnTo:
-                        options.logoutRedirectUri || window.location.origin,
-                });
-            }
-            return Promise.resolve();
-        });
+    async logout() {
+        const isAuthenticated = await client.isAuthenticated();
+        if (isAuthenticated) {
+            // need to check for this as react-admin calls logout in case checkAuth failed
+            return client.logout({
+                returnTo: options.logoutRedirectUri || window.location.origin,
+            });
+        }
     },
     // called when the API returns an error
-    checkError: ({ status }) => {
+    async checkError({ status }) {
         if (status === 401 || status === 403) {
-            return Promise.reject();
+            throw new Error('Unauthorized');
         }
-        return Promise.resolve();
     },
     // called when the user navigates to a new location, to check for authentication
     async checkAuth() {
         const isAuthenticated = await client.isAuthenticated();
-
         if (isAuthenticated) {
-            return Promise.resolve();
+            return;
         }
 
-        return Promise.reject();
-        // // If we have query parameters, we are in the callback phase of the Auth0 flow
-        // const query = window.location.search;
-        // if (query.includes('code=') && query.includes('state=')) {
-        //     try {
-        //         await client.handleRedirectCallback(); // For some mysterious reason, this call return "Invalid state" at the first call
-        //         // remove query params from url and reload
-        //         window.history.replaceState({}, document.title, '/');
-        //         // Reload the page to get the user info
-        //         window.location.reload();
-        //         return Promise.resolve();
-        //     } catch (error) {
-        //         console.log('error', error);
-        //         return Promise.resolve(false);
-        //     }
-        // }
-
-        // // If we are not authenticated, redirect to Auth0 login page
-        // return client.loginWithRedirect({
-        //     authorizationParams: {
-        //         redirect_uri:
-        //             options.loginRedirectUri || window.location.origin,
-        //     },
-        // });
+        client.loginWithRedirect({
+            authorizationParams: {
+                redirect_uri: `${window.location.origin}/login-callback`,
+            },
+        });
     },
     // called when the user navigates to a new location, to check for permissions / roles
     async getPermissions() {
         if (!(await client.isAuthenticated())) {
-            return Promise.resolve(false);
+            return false;
         }
 
         // If Auth0 instance contains rules for returning permissions, use them
@@ -177,15 +153,26 @@ export const Auth0AuthProvider = (
             key.includes('role')
         );
         const roles = claims[roleProperty];
-        return Promise.resolve(
-            options.onPermissions ? options.onPermissions(roles) : roles
-        );
+        return options.onPermissions ? options.onPermissions(roles) : roles;
     },
     async getIdentity() {
         if (await client.isAuthenticated()) {
             const user = await client.getUser();
-            return Promise.resolve({ id: user.email, fullName: user.name });
+            return { id: user.email, fullName: user.name };
         }
-        return Promise.reject('Failed to get identity.');
+        throw new Error('Failed to get identity.');
+    },
+    async handleCallback() {
+        const query = window.location.search;
+        if (query.includes('code=') && query.includes('state=')) {
+            try {
+                await client.handleRedirectCallback();
+                return;
+            } catch (error) {
+                console.log('error', error);
+                throw error;
+            }
+        }
+        throw new Error('Failed to handle login callback.');
     },
 });
