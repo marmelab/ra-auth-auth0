@@ -40,16 +40,13 @@ test-unit: ## launch unit tests
 run-demo:
 	@cd ./packages/demo-react-admin && yarn start
 
-run: auth0-start
-stop: auth0-stop
-
 DOCKER_COMPOSE = docker-compose -p ra-auth-auth0 -f ./docker-compose.yml
 
-auth0-start: ## Start the project with docker.
+start: ## Start the project with docker.
 	$(DOCKER_COMPOSE) up --force-recreate -d
 
-auth0-logs: ## Display logs
+logs: ## Display logs
 	$(DOCKER_COMPOSE) logs -f
 
-auth0-stop: ## Stop the project with docker.
+stop: ## Stop the project with docker.
 	$(DOCKER_COMPOSE) down

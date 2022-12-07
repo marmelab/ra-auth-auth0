@@ -14,7 +14,9 @@ services:
             - '.:/app'
         ports:
             - '3000:3000'
-
+        environment:
+            - AUTH0_DOMAIN=${VITE_AUTH0_DOMAIN}
+            - AUTH0_AUDIENCE=${VITE_AUTH0_AUDIENCE}
     demo-react-admin:
         image: node:18
         working_dir: /app/packages/demo-react-admin

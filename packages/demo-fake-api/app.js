@@ -13,10 +13,10 @@ const jwtCheck = jwt({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: 'https://ra-auth0.eu.auth0.com/.well-known/jwks.json',
+        jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
     }),
-    audience: 'https:ra-api.com',
-    issuer: 'https://ra-auth0.eu.auth0.com/',
+    audience: `${process.env.AUTH0_AUDIENCE}`,
+    issuer: `https://${process.env.AUTH0_DOMAIN}/`,
     algorithms: ['RS256'],
 });
 
