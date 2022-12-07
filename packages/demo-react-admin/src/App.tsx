@@ -6,7 +6,7 @@ import {
     AuthProvider,
     DataProvider,
 } from 'react-admin';
-import { Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import comments from './comments';
 import CustomRouteLayout from './customRouteLayout';
 import CustomRouteNoLayout from './customRouteNoLayout';
@@ -15,7 +15,7 @@ import Layout from './Layout';
 import posts from './posts';
 import users from './users';
 import tags from './tags';
-import { Auth0AuthProvider, httpClient, Login } from 'ra-auth-auth0';
+import { Auth0AuthProvider, httpClient } from 'ra-auth-auth0';
 import { Auth0Client } from '@auth0/auth0-spa-js';
 import jsonServerProvider from 'ra-data-json-server';
 
@@ -39,6 +39,9 @@ const App = () => {
                 domain: import.meta.env.VITE_AUTH0_DOMAIN,
                 clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
                 cacheLocation: 'localstorage',
+                authorizationParams: {
+                    audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+                },
             });
 
             authProvider.current = Auth0AuthProvider(clientAuth0, {
@@ -65,61 +68,62 @@ const App = () => {
     }
 
     return (
-        <Admin
-            authProvider={authProvider.current}
-            dataProvider={dataProvider.current}
-            i18nProvider={i18nProvider}
-            title="Example Admin"
-            layout={Layout}
-            loginPage={<Login client={auth0} />}
-        >
-            {permissions => (
-                <>
-                    <CustomRoutes noLayout>
-                        <Route
-                            path="/custom"
-                            element={
-                                <CustomRouteNoLayout title="Posts from /custom" />
-                            }
-                        />
-                    </CustomRoutes>
-                    <Resource name="posts" {...posts} />
-                    <Resource name="comments" {...comments} />
-                    <Resource name="tags" {...tags} />
-                    {permissions ? (
-                        <>
-                            {permissions === 'admin' ? (
-                                <Resource name="users" {...users} />
-                            ) : null}
-                            <CustomRoutes noLayout>
-                                <Route
-                                    path="/custom1"
-                                    element={
-                                        <CustomRouteNoLayout title="Posts from /custom1" />
-                                    }
-                                />
-                            </CustomRoutes>
-                            <CustomRoutes>
-                                <Route
-                                    path="/custom2"
-                                    element={
-                                        <CustomRouteLayout title="Posts from /custom2" />
-                                    }
-                                />
-                            </CustomRoutes>
-                        </>
-                    ) : null}
-                    <CustomRoutes>
-                        <Route
-                            path="/custom3"
-                            element={
-                                <CustomRouteLayout title="Posts from /custom3" />
-                            }
-                        />
-                    </CustomRoutes>
-                </>
-            )}
-        </Admin>
+        <BrowserRouter>
+            <Admin
+                authProvider={authProvider.current}
+                dataProvider={dataProvider.current}
+                i18nProvider={i18nProvider}
+                title="Example Admin"
+                layout={Layout}
+            >
+                {permissions => (
+                    <>
+                        <CustomRoutes noLayout>
+                            <Route
+                                path="/custom"
+                                element={
+                                    <CustomRouteNoLayout title="Posts from /custom" />
+                                }
+                            />
+                        </CustomRoutes>
+                        <Resource name="posts" {...posts} />
+                        <Resource name="comments" {...comments} />
+                        <Resource name="tags" {...tags} />
+                        {permissions ? (
+                            <>
+                                {permissions === 'admin' ? (
+                                    <Resource name="users" {...users} />
+                                ) : null}
+                                <CustomRoutes noLayout>
+                                    <Route
+                                        path="/custom1"
+                                        element={
+                                            <CustomRouteNoLayout title="Posts from /custom1" />
+                                        }
+                                    />
+                                </CustomRoutes>
+                                <CustomRoutes>
+                                    <Route
+                                        path="/custom2"
+                                        element={
+                                            <CustomRouteLayout title="Posts from /custom2" />
+                                        }
+                                    />
+                                </CustomRoutes>
+                            </>
+                        ) : null}
+                        <CustomRoutes>
+                            <Route
+                                path="/custom3"
+                                element={
+                                    <CustomRouteLayout title="Posts from /custom3" />
+                                }
+                            />
+                        </CustomRoutes>
+                    </>
+                )}
+            </Admin>
+        </BrowserRouter>
     );
 };
 export default App;
