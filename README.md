@@ -36,27 +36,21 @@ We need to add some minimal configuration to our Auth0 instance to use it. This 
     - Allowed Web Origins: `http://localhost:8081`
     - Allowed Origins (CORS): `http://localhost:8081`
 
-If you want to use permissions, you need to add the following to your Auth0 Application as a `Rule`:
+If you want to use permissions, you need to add the following to your Auth0 Application as an [`Action`](https://auth0.com/docs/manage-users/access-control/sample-use-cases-actions-with-authorization#add-user-roles-to-tokens):
 
 ```JS
-function (user, context, callback) {
-  const namespace = 'ra-auth-auth0.eu.auth0.com';
-  const assignedRoles = (context.authorization || {}).roles;
-
-  let idTokenClaims = context.idToken || {};
-  let accessTokenClaims = context.accessToken || {};
-
-  idTokenClaims[`${namespace}/roles`] = assignedRoles;
-  accessTokenClaims[`${namespace}/roles`] = assignedRoles;
-
-  context.idToken = idTokenClaims;
-  context.accessToken = accessTokenClaims;
-
-  callback(null, user, context);
+exports.onExecutePostLogin = async (event, api) => {
+  const namespace = 'https://my-app.example.com';
+  if (event.authorization) {
+    api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+    api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+  }
 }
 ```
 
-For you react-admin, you need to setup environment variables. You can do this by creating a `.env` file in the root of the project. The following variables are required:
+The `authProvider` exported by this package will look for a claim that has a name with the term `role` in it and return its value.
+
+For react-admin, you need to setup environment variables. You can do this by creating a `.env` file in the root of the project. The following variables are required:
 
 ```JS
 VITE_AUTH0_DOMAIN=your-domain.auth0.com
