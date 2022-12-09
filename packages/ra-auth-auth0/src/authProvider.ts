@@ -1,6 +1,5 @@
-import { AuthProvider } from 'react-admin';
-
-export type PermissionsFunction = (roles: String[]) => any;
+import { AuthProvider, PreviousLocationStorageKey } from 'react-admin';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 
 /**
  * An authProvider which handles authentication via the Auth0 instance.
@@ -103,22 +102,36 @@ export type PermissionsFunction = (roles: String[]) => any;
  * @returns an authProvider ready to be used by React-Admin.
  */
 export const Auth0AuthProvider = (
-    client: any,
-    options: {
-        onPermissions?: PermissionsFunction;
+    client: Auth0Client,
+    {
+        loginRedirectUri,
+        logoutRedirectUri,
+        redirectOnCheckAuth = true,
+    }: {
         loginRedirectUri?: string;
         logoutRedirectUri?: string;
-    } = {}
+        redirectOnCheckAuth?: boolean;
+    } = {
+        redirectOnCheckAuth: true,
+    }
 ): AuthProvider => ({
-    // called when the user attempts to log in. Empty in our case, as we use the Auth0 login page
-    async login() {},
+    // Used when the redirection to Auth0 is done from a custom login page
+    async login() {
+        client.loginWithRedirect({
+            authorizationParams: {
+                redirect_uri: `${window.location.origin}/auth-callback`,
+            },
+        });
+    },
     // called when the user clicks on the logout button
     async logout() {
         const isAuthenticated = await client.isAuthenticated();
         if (isAuthenticated) {
             // need to check for this as react-admin calls logout in case checkAuth failed
             return client.logout({
-                returnTo: options.logoutRedirectUri || window.location.origin,
+                logoutParams: {
+                    returnTo: logoutRedirectUri || window.location.origin,
+                },
             });
         }
     },
@@ -135,16 +148,22 @@ export const Auth0AuthProvider = (
             return;
         }
 
-        client.loginWithRedirect({
-            authorizationParams: {
-                redirect_uri: `${window.location.origin}/login-callback`,
-            },
-        });
+        if (redirectOnCheckAuth) {
+            localStorage.setItem(
+                PreviousLocationStorageKey,
+                window.location.href
+            );
+            client.loginWithRedirect({
+                authorizationParams: {
+                    redirect_uri: `${window.location.origin}/auth-callback`,
+                },
+            });
+        }
     },
     // called when the user navigates to a new location, to check for permissions / roles
     async getPermissions() {
         if (!(await client.isAuthenticated())) {
-            return false;
+            return;
         }
 
         // If Auth0 instance contains rules for returning permissions, use them
@@ -152,13 +171,16 @@ export const Auth0AuthProvider = (
         const roleProperty = Object.keys(claims).find(key =>
             key.includes('role')
         );
-        const roles = claims[roleProperty];
-        return options.onPermissions ? options.onPermissions(roles) : roles;
+        return claims[roleProperty];
     },
     async getIdentity() {
         if (await client.isAuthenticated()) {
             const user = await client.getUser();
-            return { id: user.email, fullName: user.name };
+            return {
+                id: user.email,
+                fullName: user.name,
+                avatar: user.picture,
+            };
         }
         throw new Error('Failed to get identity.');
     },

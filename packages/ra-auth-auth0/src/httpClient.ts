@@ -1,9 +1,9 @@
 import { fetchUtils } from 'react-admin';
 
 /**
- * The httpClient which adds headers needed by Keycloak in all requests.
- * @param keycloak the client for the Keycloak authentication server.
- * @returns a function with the same definition as `httpClient`, which adds headers needed by Keycloak in all requests.
+ * An httpClient that adds authentication headers needed by Auth0 in all requests.
+ * @param auth0Client the Auth0 client.
+ * @returns a function with the same definition as `httpClient` that adds an `Authorization` header containing the Auth0 token.
  */
 export const httpClient = (auth0Client: any) => async (
     url: any,
