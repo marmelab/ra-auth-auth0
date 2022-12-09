@@ -119,7 +119,9 @@ export const Auth0AuthProvider = (
     async login() {
         client.loginWithRedirect({
             authorizationParams: {
-                redirect_uri: `${window.location.origin}/auth-callback`,
+                redirect_uri:
+                    loginRedirectUri ??
+                    `${window.location.origin}/auth-callback`,
             },
         });
     },
@@ -155,7 +157,9 @@ export const Auth0AuthProvider = (
             );
             client.loginWithRedirect({
                 authorizationParams: {
-                    redirect_uri: `${window.location.origin}/auth-callback`,
+                    redirect_uri:
+                        loginRedirectUri ??
+                        `${window.location.origin}/auth-callback`,
                 },
             });
         }
