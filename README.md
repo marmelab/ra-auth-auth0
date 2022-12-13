@@ -55,13 +55,13 @@ For react-admin, you need to setup environment variables. You can do this by cre
 ```JS
 VITE_AUTH0_DOMAIN=your-domain.auth0.com
 VITE_AUTH0_CLIENT_ID=your-client-id
-VITE_AUTH0_AUDIENCE=your-audience // optional but recommended for aving non opaque tokens
+VITE_AUTH0_AUDIENCE=your-audience // optional but recommended for having non opaque tokens
 VITE_LOGIN_REDIRECT_URL = 'http://127.0.0.1:8081'
 VITE_LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8081'
 VITE_API_URL = 'http://127.0.0.1:3000'
 ```
 
-1. Run `make install run` to install the dependencies and start the Demo App
+1. Run `make install start` to install the dependencies and start the Demo App
 
 ### Using the Simple Demo
 

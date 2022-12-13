@@ -98,7 +98,7 @@ import { Auth0Client } from '@auth0/auth0-spa-js';
  *
  * ```
  *
- * @param client the Auth0 client *
+ * @param client the Auth0 client
  * @returns an authProvider ready to be used by React-Admin.
  */
 export const Auth0AuthProvider = (

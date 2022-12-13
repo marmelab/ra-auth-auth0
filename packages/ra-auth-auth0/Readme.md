@@ -20,7 +20,7 @@ npm install --save ra-auth-auth0
 // in src/App.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import { Admin, Resource } from 'react-admin';
-import { Auth0AuthProvider, httpClient } from 'ra-auth-auth0';
+import { Auth0AuthProvider } from 'ra-auth-auth0';
 import { Auth0Client } from '@auth0/auth0-spa-js';
 import dataProvider from './dataProvider';
 import posts from './posts';
@@ -60,7 +60,7 @@ export default App;
 
 ## Passing The Auth0 Token To Your Backend
 
-If you want to pass the Auth0 authentication token to your backend, you can use the [`httpClient`](https://marmelab.com/react-admin/DataProviders.html#adding-custom-headers) exported by package. For instance, here's how to use it with the [`ra-data-json-server` dataProvider](https://github.com/marmelab/react-admin/tree/master/packages/ra-data-json-server):
+If you want to pass the Auth0 authentication token to your backend, you can use the [`httpClient`](https://marmelab.com/react-admin/DataProviders.html#adding-custom-headers) exported by this package. For instance, here's how to use it with the [`ra-data-json-server` dataProvider](https://github.com/marmelab/react-admin/tree/master/packages/ra-data-json-server):
 
 ```js
 import jsonServerProvider from 'ra-data-json-server';

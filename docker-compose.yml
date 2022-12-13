@@ -5,7 +5,7 @@ volumes:
         driver: local
 
 services:
-    # Create service demo-fake-api who user node 18 on port 3000 and code is in packages/demo-fake-api folder. Without postgress
+    # Create service demo-fake-api who uses node 18 on port 3000 and code is in packages/demo-fake-api folder. Without postgres
     demo-fake-api:
         image: node:18
         working_dir: /app/packages/demo-fake-api
