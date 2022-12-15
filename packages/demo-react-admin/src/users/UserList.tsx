@@ -22,7 +22,7 @@ const getUserFilters = permissions =>
     [
         <SearchInput source="q" alwaysOn />,
         <TextInput source="name" />,
-        permissions === 'admin' ? <TextInput source="role" /> : null,
+        permissions.includes('admin') ? <TextInput source="role" /> : null,
     ].filter(filter => filter !== null);
 
 const UserBulkActionButtons = props => (
@@ -30,7 +30,7 @@ const UserBulkActionButtons = props => (
 );
 
 const rowClick = memoize(permissions => (id, resource, record) => {
-    return permissions === 'admin'
+    return permissions.includes('admin')
         ? Promise.resolve('edit')
         : Promise.resolve('show');
 });
@@ -48,7 +48,7 @@ const UserList = () => {
                 <SimpleList
                     primaryText={record => record.name}
                     secondaryText={record =>
-                        permissions === 'admin' ? record.role : null
+                        permissions.includes('admin') ? record.role : null
                     }
                 />
             ) : (
@@ -60,7 +60,9 @@ const UserList = () => {
                 >
                     <TextField source="id" />
                     <TextField source="name" />
-                    {permissions === 'admin' && <TextField source="role" />}
+                    {permissions.includes('admin') && (
+                        <TextField source="role" />
+                    )}
                 </Datagrid>
             )}
         </List>

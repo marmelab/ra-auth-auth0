@@ -149,7 +149,7 @@ const PostCreate = () => {
                         <TextInput source="url" defaultValue="" />
                     </SimpleFormIterator>
                 </ArrayInput>
-                {permissions === 'admin' && (
+                {permissions.includes('admin') && (
                     <ArrayInput source="authors">
                         <SimpleFormIterator>
                             <ReferenceInput source="user_id" reference="users">

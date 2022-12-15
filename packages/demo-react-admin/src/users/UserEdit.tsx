@@ -65,14 +65,16 @@ const UserEditForm = ({ save, ...props }: { save?: any }) => {
             onSubmit={newSave}
         >
             <FormTab label="user.form.summary" path="">
-                {permissions === 'admin' && <TextInput disabled source="id" />}
+                {permissions.includes('admin') && (
+                    <TextInput disabled source="id" />
+                )}
                 <TextInput
                     source="name"
                     defaultValue="slim shady"
                     validate={required()}
                 />
             </FormTab>
-            {permissions === 'admin' && (
+            {permissions.includes('admin') && (
                 <FormTab label="user.form.security" path="security">
                     <SelectInput
                         source="role"

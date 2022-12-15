@@ -19,7 +19,7 @@ const UserShow = () => {
                     <TextField source="id" />
                     <TextField source="name" />
                 </Tab>
-                {permissions === 'admin' && (
+                {permissions.includes('admin') && (
                     <Tab label="user.form.security" path="security">
                         <TextField source="role" />
                     </Tab>

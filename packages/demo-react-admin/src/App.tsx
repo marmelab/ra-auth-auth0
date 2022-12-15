@@ -59,7 +59,7 @@ const App = () => {
                         <Resource name="tags" {...tags} />
                         {permissions ? (
                             <>
-                                {permissions === 'admin' ? (
+                                {permissions.includes('admin') ? (
                                     <Resource name="users" {...users} />
                                 ) : null}
                                 <CustomRoutes noLayout>

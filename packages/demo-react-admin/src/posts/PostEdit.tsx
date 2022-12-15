@@ -145,7 +145,7 @@ const PostEdit = () => {
                     >
                         <ImageField source="src" title="title" />
                     </ImageInput>
-                    {permissions === 'admin' && (
+                    {permissions.includes('admin') && (
                         <ArrayInput source="authors">
                             <SimpleFormIterator inline>
                                 <ReferenceInput

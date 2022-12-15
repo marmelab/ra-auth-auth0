@@ -23,7 +23,7 @@ const UserEditToolbar = ({ permissions, ...props }) => {
     return (
         <Toolbar {...props}>
             <SaveButton label="user.action.save_and_show" />
-            {permissions === 'admin' && (
+            {permissions.includes('admin') && (
                 <SaveButton
                     label="user.action.save_and_add"
                     mutationOptions={{
@@ -69,7 +69,7 @@ const UserCreate = () => {
                         validate={[required(), isValidName]}
                     />
                 </FormTab>
-                {permissions === 'admin' && (
+                {permissions.includes('admin') && (
                     <FormTab label="user.form.security" path="security">
                         <AutocompleteInput
                             source="role"
