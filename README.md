@@ -53,12 +53,12 @@ The `authProvider` exported by this package will look for a claim that has a nam
 For react-admin, you need to setup environment variables. You can do this by creating a `.env` file in the root of the project. The following variables are required:
 
 ```JS
-VITE_AUTH0_DOMAIN=your-domain.auth0.com
-VITE_AUTH0_CLIENT_ID=your-client-id
-VITE_AUTH0_AUDIENCE=your-audience // optional but recommended for having non opaque tokens
-VITE_LOGIN_REDIRECT_URL = 'http://127.0.0.1:8081'
-VITE_LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8081'
-VITE_API_URL = 'http://127.0.0.1:3000'
+VITE_AUTH0_DOMAIN="your-domain.auth0.com"
+VITE_AUTH0_CLIENT_ID="your-client-id"
+VITE_AUTH0_AUDIENCE="https://your-domain.auth0.com/api/v2/" // optional but recommended for having non opaque tokens
+VITE_LOGIN_REDIRECT_URL="http://127.0.0.1:8081/auth-callback"
+VITE_LOGOUT_REDIRECT_URL="http://127.0.0.1:8081"
+VITE_API_URL="http://127.0.0.1:3000"
 ```
 
 1. Run `make install start` to install the dependencies and start the Demo App
