@@ -6,91 +6,37 @@ import { Auth0Client } from '@auth0/auth0-spa-js';
  *
  * @example
  * ```tsx
- * import React, { useEffect, useRef, useState } from 'react';
- * import {
- *    Admin,
- *    Resource,
- *    CustomRoutes,
- *    AuthProvider,
- *    DataProvider,
- * } from 'react-admin';
+ * import React from 'react';
+ * import { Admin, Resource } from 'react-admin';
  * import { Route } from 'react-router-dom';
- * import comments from './comments';
- * import i18nProvider from './i18nProvider';
- * import Layout from './Layout';
- * import posts from './posts';
- * import users from './users';
- * import tags from './tags';
  * import { Auth0AuthProvider, httpClient } from 'ra-auth-auth0';
  * import { Auth0Client } from '@auth0/auth0-spa-js';
- * import jsonServerProvider from 'ra-data-json-server';
+ * import dataProvider from './dataProvider';
+ * import posts from './posts';
  *
- * const getPermissions = (roles: String[]) => {
- *    if (!roles) {
- *        return false;
- *    }
- *    if (roles.includes('admin')) return 'admin';
- *    if (roles.includes('user')) return 'user';
- *    return false;
- * };
+ * const clientAuth0 = new Auth0Client({
+ *    domain: 'your-domain.auth0.com',
+ *    clientId: 'your-client-id',
+ *    cacheLocation: 'localstorage',
+ *    // optional
+ *    authorizationParams: {
+ *        audience: 'https://your-domain.auth0.com/api/v2/',
+ *    },
+ * });
+ *
+ * const authProvider = Auth0AuthProvider(clientAuth0, {
+ *     loginRedirectUri: import.meta.env.VITE_LOGIN_REDIRECT_URL,
+ *     logoutRedirectUri: import.meta.env.VITE_LOGOUT_REDIRECT_URL,
+ * });
  *
  *  const App = () => {
- *    const [auth0, setAuth0] = useState(undefined);
- *    const authProvider = useRef<AuthProvider>(undefined);
- *    const dataProvider = useRef<DataProvider>(undefined);
- *
- *    useEffect(() => {
- *        const initAuth0Client = async () => {
- *           const clientAuth0 = new Auth0Client({
- *              domain: import.meta.env.VITE_AUTH0_DOMAIN,
- *              clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
- *              cacheLocation: 'localstorage',
- *              authorizationParams: {
- *                  audience: import.meta.env.VITE_AUTH0_AUDIENCE,
- *              },
- *          });
- *
- *          authProvider.current = Auth0AuthProvider(clientAuth0, {
- *              onPermissions: getPermissions,
- *              loginRedirectUri: import.meta.env.VITE_LOGIN_REDIRECT_URL,
- *              logoutRedirectUri: import.meta.env.VITE_LOGOUT_REDIRECT_URL,
- *          });
- *
- *          const httpClientAuth0 = await httpClient(clientAuth0);
- *          dataProvider.current = jsonServerProvider(
- *              import.meta.env.VITE_API_URL,
- *              httpClientAuth0
- *          );
- *
- *          setAuth0(clientAuth0);
- *       };
- *       if (!auth0) {
- *          initAuth0Client();
- *       }
- *    }, [auth0]);
- *
- *   if (!auth0) {
- *     return <div>Loading...</div>;
- *   }
- *
  *   return (
  *        <Admin
- *            authProvider={authProvider.current}
- *            dataProvider={dataProvider.current}
- *            i18nProvider={i18nProvider}
+ *            authProvider={authProvider}
+ *            dataProvider={dataProvider}
  *            title="Example Admin"
- *            layout={Layout}
  *         >
- *           {permissions => (
- *               <>
- *                   <Resource name="posts" {...posts} />
- *                   <Resource name="comments" {...comments} />
- *                   <Resource name="tags" {...tags} />
- *                   {permissions === 'admin' ? (
- *                       <Resource name="users" {...users} />
- *                   ) : null}
- *               </>
- *           )}
+ *             <Resource name="posts" {...posts} />
  *       </Admin>
  *    );
  * };
@@ -99,6 +45,10 @@ import { Auth0Client } from '@auth0/auth0-spa-js';
  * ```
  *
  * @param client the Auth0 client
+ * @param options The authProvider options
+ * @param options.loginRedirectUri The URI to which users should be redirected after they signed in. Must be whitelisted in the Auth0 application settings.
+ * @param options.logoutRedirectUri The URI to which users should be redirected after they signed out. Must be whitelisted in the Auth0 application settings.
+ * @param options.redirectOnCheckAuth If true, the user will be redirected to Auth0 when checkAuth fails. Defaults to true.
  * @returns an authProvider ready to be used by React-Admin.
  */
 export const Auth0AuthProvider = (

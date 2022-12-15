@@ -74,7 +74,7 @@ Feel free to play around with this demo, along with the Auth0 config, to underst
 
 ### JSON Server API
 
-The demo app uses a [JSON Server]() to provide a REST API. You can find the configuration in the `demo-fake-api` folder.
+The demo app uses a [JSON Server](https://github.com/typicode/json-server) to provide a REST API. You can find the configuration in the `demo-fake-api` folder.
 It shows how use middleware to validate the JWT token via the Auth0 API.
 
 ## License
