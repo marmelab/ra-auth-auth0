@@ -31,10 +31,10 @@ We need to add some minimal configuration to our Auth0 instance to use it. This 
 1. Do the same for `user@marmelab.com` and the `user` role.
 1. Go to the `Applications` section of your Auth0 Application and select `Settings`
 1. Create a `single page` application with the following settings:
-    - Allowed Callback URLs: `http://localhost:8081`
-    - Allowed Logout URLs: `http://localhost:8081`
-    - Allowed Web Origins: `http://localhost:8081`
-    - Allowed Origins (CORS): `http://localhost:8081`
+    - Allowed Callback URLs: `http://127.0.0.1:8081/auth-callback`
+    - Allowed Logout URLs: `http://127.0.0.1:8081`
+    - Allowed Web Origins: `http://127.0.0.1:8081`
+    - Allowed Origins (CORS): `http://127.0.0.1:8081`
 
 If you want to use permissions, you need to add the following to your Auth0 Application as an [`Action`](https://auth0.com/docs/manage-users/access-control/sample-use-cases-actions-with-authorization#add-user-roles-to-tokens):
 
@@ -65,7 +65,7 @@ VITE_API_URL="http://127.0.0.1:3000"
 
 ### Using the Simple Demo
 
-Now that all is configured and running, you can browse to http://localhost:8081/ to access the React Admin App.
+Now that all is configured and running, you can browse to http://127.0.0.1:8081/ to access the React Admin App.
 
 -   Signing in with `user@marmelab.com` will only grant the `user` role permissions
 -   Signing in with `admin@marmelab.com` will grant full `admin` role permissions, allowing for instance to see the 'Users' resource in the main menu
