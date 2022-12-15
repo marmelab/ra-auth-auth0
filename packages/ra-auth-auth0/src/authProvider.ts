@@ -8,8 +8,7 @@ import { Auth0Client } from '@auth0/auth0-spa-js';
  * ```tsx
  * import React from 'react';
  * import { Admin, Resource } from 'react-admin';
- * import { Route } from 'react-router-dom';
- * import { Auth0AuthProvider, httpClient } from 'ra-auth-auth0';
+ * import { Auth0AuthProvider } from 'ra-auth-auth0';
  * import { Auth0Client } from '@auth0/auth0-spa-js';
  * import dataProvider from './dataProvider';
  * import posts from './posts';
@@ -25,8 +24,8 @@ import { Auth0Client } from '@auth0/auth0-spa-js';
  * });
  *
  * const authProvider = Auth0AuthProvider(clientAuth0, {
- *     loginRedirectUri: import.meta.env.VITE_LOGIN_REDIRECT_URL,
- *     logoutRedirectUri: import.meta.env.VITE_LOGOUT_REDIRECT_URL,
+ *     loginRedirectUri: 'http://localhost:3000/auth-callback',
+ *     logoutRedirectUri: 'http://localhost:3000',
  * });
  *
  *  const App = () => {
