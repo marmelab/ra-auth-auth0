@@ -76,15 +76,11 @@ export const Auth0AuthProvider = (
     },
     // called when the user clicks on the logout button
     async logout() {
-        const isAuthenticated = await client.isAuthenticated();
-        if (isAuthenticated) {
-            // need to check for this as react-admin calls logout in case checkAuth failed
-            return client.logout({
-                logoutParams: {
-                    returnTo: logoutRedirectUri || window.location.origin,
-                },
-            });
-        }
+        return client.logout({
+            logoutParams: {
+                returnTo: logoutRedirectUri || window.location.origin,
+            },
+        });
     },
     // called when the API returns an error
     async checkError({ status }) {

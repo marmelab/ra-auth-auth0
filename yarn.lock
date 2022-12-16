@@ -4519,6 +4519,7 @@ __metadata:
     lodash: ~4.17.5
     prop-types: ^15.7.2
     proxy-polyfill: ^0.3.0
+    ra-auth-auth0: "*"
     ra-data-fakerest: ^4.5.2
     ra-data-json-server: ^4.5.2
     ra-i18n-polyglot: ^4.5.2
@@ -9114,7 +9115,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"ra-auth-auth0@workspace:packages/ra-auth-auth0":
+"ra-auth-auth0@*, ra-auth-auth0@workspace:packages/ra-auth-auth0":
   version: 0.0.0-use.local
   resolution: "ra-auth-auth0@workspace:packages/ra-auth-auth0"
   dependencies:
@@ -9128,7 +9129,8 @@ __metadata:
     ts-jest: ^29.0.3
     typescript: ^4.8.4
   peerDependencies:
-    ra-core: "*"
+    "@auth0/auth0-spa-js": ^2.0.0
+    ra-core: ^4.7.0
     react: ^16.9.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.9.0 || ^17.0.0 || ^18.0.0
   languageName: unknown

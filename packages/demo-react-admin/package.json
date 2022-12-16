@@ -19,6 +19,7 @@
         "lodash": "~4.17.5",
         "prop-types": "^15.7.2",
         "proxy-polyfill": "^0.3.0",
+        "ra-auth-auth0": "*",
         "ra-data-fakerest": "^4.5.2",
         "ra-data-json-server": "^4.5.2",
         "ra-i18n-polyglot": "^4.5.2",
