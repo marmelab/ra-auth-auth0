@@ -1,0 +1,19 @@
+{
+  "name": "demo-fake-api",
+  "version": "1.0.0",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-jwt": "^7.7.7",
+    "json-server": "^0.17.1",
+    "jwks-rsa": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
