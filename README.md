@@ -26,9 +26,9 @@ We need to add some minimal configuration to our Auth0 instance to use it. This 
 
 1. Go to the [Auth0 Dashboard](https://manage.auth0.com/dashboard)
 1. Select your Auth0 Application (or create a new one)
-1. Add `admin@marmelab.com` user to your Auth0 Application. For this, you need to go to the `User Management` section and create a new user.
-1. Add `admin` to the `Roles` section of your Auth0 Application. Assign admin@marmelab.com to the `admin` role.
-1. Do the same for `user@marmelab.com` and the `user` role.
+1. Add `admin@acme.com` user to your Auth0 Application. For this, you need to go to the `User Management` section and create a new user.
+1. Add `admin` to the `Roles` section of your Auth0 Application. Assign `admin@acme.com` to the `admin` role.
+1. Do the same for `user@acme.com` and the `user` role.
 1. Go to the `Applications` section of your Auth0 Application and select `Settings`
 1. Create a `single page` application with the following settings:
     - Allowed Callback URLs: `http://127.0.0.1:8081/auth-callback`
@@ -66,8 +66,8 @@ VITE_LOGOUT_REDIRECT_URL="http://127.0.0.1:8081"
 
 Now that all is configured and running, you can browse to http://127.0.0.1:8081/ to access the React Admin App.
 
--   Signing in with `user@marmelab.com` will only grant the `user` role permissions
--   Signing in with `admin@marmelab.com` will grant full `admin` role permissions, allowing for instance to see the 'Users' resource in the main menu
+-   Signing in with `user@acme.com` will only grant the `user` role permissions
+-   Signing in with `admin@acme.com` will grant full `admin` role permissions, allowing for instance to see the 'Users' resource in the main menu
 
 Feel free to play around with this demo, along with the Auth0 config, to understand better how it works!
 
