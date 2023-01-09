@@ -50,3 +50,6 @@ logs: ## Display logs
 
 stop: ## Stop the project with docker.
 	$(DOCKER_COMPOSE) down
+
+publish: ## Publish the package
+	cd packages/ra-auth-auth0 && npm publish
