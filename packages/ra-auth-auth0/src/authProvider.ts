@@ -108,6 +108,7 @@ export const Auth0AuthProvider = (
                 },
             });
         }
+        throw new Error('Unauthorized');
     },
     // called when the user navigates to a new location, to check for permissions / roles
     async getPermissions() {
