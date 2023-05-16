@@ -142,7 +142,7 @@ export const Auth0AuthProvider = (
                 await client.handleRedirectCallback();
                 return;
             } catch (error) {
-                throw { redirectTo: false };
+                throw { redirectTo: false, message: error.message };
             }
         }
         throw new Error('Failed to handle login callback.');
