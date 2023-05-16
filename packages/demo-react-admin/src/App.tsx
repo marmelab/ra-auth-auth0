@@ -24,7 +24,6 @@ const auth0 = new Auth0Client({
 
 const authProvider = Auth0AuthProvider(auth0, {
     loginRedirectUri: import.meta.env.VITE_LOGIN_REDIRECT_URL,
-    logoutRedirectUri: import.meta.env.VITE_LOGOUT_REDIRECT_URL,
 });
 
 const App = () => {

@@ -1,4 +1,4 @@
-import { AuthProvider, PreviousLocationStorageKey } from 'react-admin';
+import { AuthProvider, PreviousLocationStorageKey } from 'ra-core';
 import { Auth0Client } from '@auth0/auth0-spa-js';
 
 /**
@@ -25,7 +25,6 @@ import { Auth0Client } from '@auth0/auth0-spa-js';
  *
  * const authProvider = Auth0AuthProvider(clientAuth0, {
  *     loginRedirectUri: 'http://localhost:3000/auth-callback',
- *     logoutRedirectUri: 'http://localhost:3000',
  * });
  *
  *  const App = () => {
@@ -76,11 +75,13 @@ export const Auth0AuthProvider = (
     },
     // called when the user clicks on the logout button
     async logout() {
-        return client.logout({
-            logoutParams: {
-                returnTo: logoutRedirectUri || window.location.origin,
-            },
-        });
+        return client
+            .logout({
+                logoutParams: {
+                    returnTo: logoutRedirectUri || window.location.origin,
+                },
+            })
+            .then(() => logoutRedirectUri || '/');
     },
     // called when the API returns an error
     async checkError({ status }) {
@@ -100,7 +101,7 @@ export const Auth0AuthProvider = (
                 PreviousLocationStorageKey,
                 window.location.href
             );
-            client.loginWithRedirect({
+            return client.loginWithRedirect({
                 authorizationParams: {
                     redirect_uri:
                         loginRedirectUri ??
@@ -141,8 +142,7 @@ export const Auth0AuthProvider = (
                 await client.handleRedirectCallback();
                 return;
             } catch (error) {
-                console.log('error', error);
-                throw error;
+                throw { redirectTo: false, message: error.message };
             }
         }
         throw new Error('Failed to handle login callback.');
