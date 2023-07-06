@@ -20,6 +20,7 @@ npm install --save ra-auth-auth0
 // in src/App.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import { Admin, Resource } from 'react-admin';
+import { BrowserRouter } from 'react-router-dom';
 import { Auth0AuthProvider } from 'ra-auth-auth0';
 import { Auth0Client } from '@auth0/auth0-spa-js';
 import dataProvider from './dataProvider';
@@ -41,16 +42,20 @@ const authProvider = Auth0AuthProvider(auth0, {
 
 const App = () => {
     return (
-        <Admin
-            authProvider={authProvider}
-            dataProvider={dataProvider}
-        >
-            <Resource name="posts" {...posts} />
-        </Admin>
+        <BrowserRouter>
+            <Admin
+                authProvider={authProvider}
+                dataProvider={dataProvider}
+            >
+                <Resource name="posts" {...posts} />
+            </Admin>
+        </BrowserRouter>
     );
 };
 export default App;
 ```
+
+**Note:** You need to wrap your app in a [`BrowserRouter`](https://reactrouter.com/en/6/router-components/browser-router) component from `react-router-dom` for the `Auth0AuthProvider` to work.
 
 ## `Auth0AuthProvider` Parameters
 
