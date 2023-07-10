@@ -8,6 +8,7 @@ import { Auth0Client } from '@auth0/auth0-spa-js';
  * ```tsx
  * import React from 'react';
  * import { Admin, Resource } from 'react-admin';
+ * import { BrowserRouter } from 'react-router-dom';
  * import { Auth0AuthProvider } from 'ra-auth-auth0';
  * import { Auth0Client } from '@auth0/auth0-spa-js';
  * import dataProvider from './dataProvider';
@@ -29,13 +30,15 @@ import { Auth0Client } from '@auth0/auth0-spa-js';
  *
  *  const App = () => {
  *   return (
+ *      <BrowserRouter>
  *        <Admin
- *            authProvider={authProvider}
- *            dataProvider={dataProvider}
- *            title="Example Admin"
- *         >
- *             <Resource name="posts" {...posts} />
- *       </Admin>
+ *          authProvider={authProvider}
+ *          dataProvider={dataProvider}
+ *          title="Example Admin"
+ *        >
+ *           <Resource name="posts" {...posts} />
+ *        </Admin>
+ *      <BrowserRouter>
  *    );
  * };
  * export default App;
