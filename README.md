@@ -2,15 +2,19 @@
 
 An auth provider for [react-admin](https://github.com/marmelab/react-admin) which handles authentication via a [Auth0](https://auth0.com) instance.
 
+[![Documentation]][DocumentationLink] 
+[![Source Code]][SourceCodeLink] 
+
+[Documentation]: https://img.shields.io/badge/Documentation-green?style=for-the-badge
+[Source Code]: https://img.shields.io/badge/Source_Code-blue?style=for-the-badge
+
+[DocumentationLink]: ./packages/ra-auth-auth0/Readme.md 'Documentation'
+[SourceCodeLink]: https://github.com/marmelab/ra-auth-auth0/tree/main/src/packages/ra-auth-auth0 'Source Code'
+
 This repository contains:
 
 -   The actual `ra-auth-auth0` package
 -   A simple demo app you can run locally to try out `ra-auth-auth0` with your own Auth0 instance
-
-## The `ra-auth-auth0` package
-
--   Please have a look at the [DOCUMENTATION](./packages/ra-auth-auth0/Readme.md)
--   And also why not the [source code](https://github.com/marmelab/ra-auth-auth0/tree/main/src/packages/ra-auth-auth0)
 
 ## Simple Demo
 
