@@ -9,7 +9,7 @@ An auth provider for [react-admin](https://github.com/marmelab/react-admin) whic
 [Source Code]: https://img.shields.io/badge/Source_Code-blue?style=for-the-badge
 
 [DocumentationLink]: ./packages/ra-auth-auth0/Readme.md 'Documentation'
-[SourceCodeLink]: https://github.com/marmelab/ra-auth-auth0/tree/main/src/packages/ra-auth-auth0 'Source Code'
+[SourceCodeLink]: https://github.com/marmelab/ra-auth-auth0/tree/main/packages/ra-auth-auth0 'Source Code'
 
 This repository contains:
 
