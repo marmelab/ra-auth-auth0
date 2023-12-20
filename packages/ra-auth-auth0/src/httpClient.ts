@@ -9,7 +9,12 @@ export const httpClient = (auth0Client: any) => async (
     url: any,
     options: fetchUtils.Options | undefined
 ) => {
-    const token = await auth0Client.getTokenSilently();
+    let token: string | null = null;
+    try {
+        token = await auth0Client.getTokenSilently();
+    } catch (error) {
+        // Nothing to do, we just won't set the Authorization header
+    }
     const requestHeaders = getAuth0Headers(token, options);
     return fetchUtils.fetchJson(url, {
         ...options,
