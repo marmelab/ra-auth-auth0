@@ -9136,7 +9136,7 @@ __metadata:
     typescript: ^4.8.4
   peerDependencies:
     "@auth0/auth0-spa-js": ^2.0.0
-    ra-core: ^4.7.0
+    ra-core: ^4.10.0
     react: ^16.9.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.9.0 || ^17.0.0 || ^18.0.0
   languageName: unknown
