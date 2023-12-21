@@ -78,13 +78,12 @@ export const Auth0AuthProvider = (
     },
     // called when the user clicks on the logout button
     async logout() {
-        return client
-            .logout({
-                logoutParams: {
-                    returnTo: logoutRedirectUri || window.location.origin,
-                },
-            })
-            .then(() => logoutRedirectUri || '/');
+        await client.logout({
+            logoutParams: {
+                returnTo: logoutRedirectUri || window.location.origin,
+            },
+        });
+        return false;
     },
     // called when the API returns an error
     async checkError({ status }) {
