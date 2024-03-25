@@ -43,10 +43,7 @@ const authProvider = Auth0AuthProvider(auth0, {
 const App = () => {
     return (
         <BrowserRouter>
-            <Admin
-                authProvider={authProvider}
-                dataProvider={dataProvider}
-            >
+            <Admin authProvider={authProvider} dataProvider={dataProvider}>
                 <Resource name="posts" {...posts} />
             </Admin>
         </BrowserRouter>
@@ -69,8 +66,13 @@ If you want to pass the Auth0 authentication token to your backend, you can use 
 
 ```js
 import jsonServerProvider from 'ra-data-json-server';
-import { Auth0Client } from './auth0';
-const dataProvider = jsonServerProvider('http://localhost:3000', httpClient(auth0));
+import { httpClient } from 'ra-auth-auth0';
+import { auth0 } from './auth0';
+
+const dataProvider = jsonServerProvider(
+    'http://localhost:3000',
+    httpClient(auth0)
+);
 ```
 
 ## Handling Permissions
@@ -92,8 +94,8 @@ const authProvider = {
 
         const claims = await client.getIdTokenClaims();
         return claims['https://my-app.example.com/roles'];
-    }
-}
+    },
+};
 ```
 
 ## Demo
@@ -102,4 +104,4 @@ You can find a working demo, along with the source code, in this project's repos
 
 ## License
 
-This auth provider is licensed under the MIT License and sponsored by [marmelab](https://marmelab.com).
+This auth provider is licensed under the MIT License and sponsored by [Marmelab](https://marmelab.com).
