@@ -1,6 +1,6 @@
 # ra-auth-auth0
 
-An auth provider for [react-admin](https://github.com/marmelab/react-admin) which handles authentication via a [Auth0](https://auth0.com) instance.
+An auth provider for [react-admin](https://github.com/marmelab/react-admin) which handles authentication via a [Auth0 / Okta](https://auth0.com) instance.
 
 [![Documentation]][DocumentationLink] 
 [![Source Code]][SourceCodeLink] 
