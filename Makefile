@@ -38,7 +38,7 @@ test-unit: ## launch unit tests
 	yarn test-unit;
 
 run-demo:
-	@cd ./packages/demo-react-admin && yarn start
+	@cd ./packages/demo-react-admin && yarn dev
 
 DOCKER_COMPOSE = docker-compose -p ra-auth-auth0 -f ./docker-compose.yml
 
