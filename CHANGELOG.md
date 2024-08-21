@@ -1,3 +1,8 @@
+## 2.0.0
+
+-   Upgrade `react-admin` to v5
+-   Remove prop-types
+
 ## 1.1.1
 
 -   Fix logout should wait for client logout to complete before redirecting (#12)
