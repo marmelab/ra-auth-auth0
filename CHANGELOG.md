@@ -2,6 +2,7 @@
 
 -   Upgrade `react-admin` to v5
 -   Remove prop-types
+-   Change imports from `ra-core` to `react-admin`
 
 ## 1.1.1
 

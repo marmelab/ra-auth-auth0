@@ -1,4 +1,4 @@
-import { AuthProvider, PreviousLocationStorageKey } from 'ra-core';
+import { AuthProvider, PreviousLocationStorageKey } from 'react-admin';
 import { Auth0Client } from '@auth0/auth0-spa-js';
 
 /**
