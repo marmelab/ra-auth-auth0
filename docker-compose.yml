@@ -20,7 +20,7 @@ services:
     demo-react-admin:
         image: node:18
         working_dir: /app/packages/demo-react-admin
-        command: yarn start
+        command: yarn dev
         volumes:
             - '.:/app'
         environment:

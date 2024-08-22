@@ -1,4 +1,4 @@
-import { fetchUtils } from 'ra-core';
+import { fetchUtils } from 'react-admin';
 
 /**
  * An httpClient that adds authentication headers needed by Auth0 in all requests.
