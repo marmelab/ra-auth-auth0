@@ -35,11 +35,12 @@ const PostReferenceInput = props => {
 
     return (
         <>
-            <ReferenceInput {...props} defaultValue="">
+            <ReferenceInput {...props} validate={undefined} defaultValue="">
                 <SelectInput
                     fullWidth
                     create={<PostQuickCreate />}
                     optionText="title"
+                    validate={props.validate}
                 />
             </ReferenceInput>
             {postId ? (
