@@ -3,6 +3,7 @@
 -   Upgrade `react-admin` to v5
 -   Remove prop-types
 -   Change imports from `ra-core` to `react-admin`
+- [Doc] Fix missing import and enhance `httpClient` data provider section
 
 ## 1.1.1
 
