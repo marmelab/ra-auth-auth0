@@ -138,15 +138,27 @@ export const Auth0AuthProvider = (
         throw new Error('Failed to get identity.');
     },
     async handleCallback() {
-        const query = window.location.search;
-        if (query.includes('code=') && query.includes('state=')) {
-            try {
-                await client.handleRedirectCallback();
-                return;
-            } catch (error) {
-                throw { redirectTo: false, message: error.message };
-            }
+        if (!handleCallbackPromise) {
+            handleCallbackPromise = new Promise(async (resolve, reject) => {
+                const query = window.location.search;
+                if (query.includes('code=') && query.includes('state=')) {
+                    try {
+                        await client.handleRedirectCallback();
+                        return resolve();
+                    } catch (error) {
+                        return reject({
+                            redirectTo: false,
+                            message: error.message,
+                        });
+                    }
+                }
+                return reject({
+                    message: 'Failed to handle login callback.',
+                });
+            });
         }
-        throw new Error('Failed to handle login callback.');
+        return handleCallbackPromise;
     },
 });
+
+let handleCallbackPromise: Promise<void> | null = null;
