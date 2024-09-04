@@ -1,3 +1,9 @@
+# Changelog
+
+## 2.0.1
+
+- Fix invalid state error when using `React.StrictMode` (#17)
+
 ## 2.0.0
 
 -   Upgrade `react-admin` to v5
