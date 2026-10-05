@@ -6914,7 +6914,7 @@ __metadata:
     react-dom: ^18.3.1
     ts-jest: ^29.0.3
     typescript: ^5.5.4
-    zshy: ^0.5.0
+    zshy: ^0.8.0
   peerDependencies:
     "@auth0/auth0-spa-js": ^2.0.0
     react-admin: ^5.1.1
@@ -8616,9 +8616,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zshy@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "zshy@npm:0.5.0"
+"zshy@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "zshy@npm:0.8.0"
   dependencies:
     arg: ^5.0.2
     fast-glob: ^3.3.2
@@ -8627,6 +8627,6 @@ __metadata:
     typescript: ">5.5.0"
   bin:
     zshy: dist/index.cjs
-  checksum: 50c62403e3266333c8cd077cbcd919a715687e05295b63319b3e1b00bfff01f64b92a026a9d501f3918b83d97257c722c1f8267a6213190e5a7366f9e2b9cbeb
+  checksum: 7e092020fd56052805caa3d37d69462b614ba7b4ff8dbb6c7ebbda51ae9efc4e615f23c34092ce87394a4eec029560fd5f9a08ef48454f24e4fdbd94a3929d5d
   languageName: node
   linkType: hard
