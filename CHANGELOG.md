@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- Publish modern ESM and CommonJS package exports ([#21](https://github.com/marmelab/ra-auth-auth0/pull/21))
+
+### Breaking Changes
+
+`ra-auth-auth0` now publishes its ES modules and CommonJS builds in `dist/`, behind an [`exports`](https://nodejs.org/api/packages.html#package-entry-points) map. Only the package root can be imported, so these undocumented paths no longer resolve:
+
+- the old build folders: `ra-auth-auth0/lib/*` and `ra-auth-auth0/esm/*`
+- the sources: `ra-auth-auth0/src/*`, even though they are still published
+- the manifest: `ra-auth-auth0/package.json`
+
 ## 2.0.1
 
 - Fix invalid state error when using `React.StrictMode` (#17)
