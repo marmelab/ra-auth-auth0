@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.0
 
 - Publish modern ESM and CommonJS package exports ([#21](https://github.com/marmelab/ra-auth-auth0/pull/21))
 - Target ES2020 instead of ES5
